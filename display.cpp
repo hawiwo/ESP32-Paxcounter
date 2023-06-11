@@ -187,10 +187,6 @@ void dp_refresh(bool nextPage) {
   case 0:
 
     // show pax
-
-    dp_setFont(MY_FONT_SMALL);
-    dp->printf("%d  ", DisplayPage);
-
     libpax_counter_count(&count);
     dp_setFont(MY_FONT_LARGE);
     dp->printf("%-8u", count.pax);
@@ -274,9 +270,6 @@ void dp_refresh(bool nextPage) {
     // 6|fUp:000000 fDn:000000
     // 7|SNR:-0000  RSSI:-0000
 
-    dp_setFont(MY_FONT_SMALL);
-    dp->printf("%d  ", DisplayPage);
-
     // show pax
     libpax_counter_count(&count);
     dp_setFont(MY_FONT_LARGE);
@@ -303,9 +296,6 @@ void dp_refresh(bool nextPage) {
   case 2:
 
 #if (HAS_GPS)
-
-    dp_setFont(MY_FONT_SMALL);
-    dp->printf("%d  ", DisplayPage);
 
     // show pax
     libpax_counter_count(&count);
@@ -336,10 +326,6 @@ void dp_refresh(bool nextPage) {
   case 3:
 
 #if (HAS_BME)
-
-    dp_setFont(MY_FONT_SMALL);
-    dp->printf("%d  ", DisplayPage);
-
     dp_setFont(MY_FONT_STRETCHED);
     dp->setCursor(0, 0);
     dp->printf("TMP %-6.1f\r\n", bme_status.temperature);
@@ -357,37 +343,20 @@ void dp_refresh(bool nextPage) {
 
   // ---------- page 4: time ----------
   case 4:
-#if (HAS_LORA)
 
-    // 3|Net:000000   Pwr:aa
-    // 4|Dev:00000000 DR:0
-    // 5|CHMsk:0000 Nonce:0000
-    // 6|fUp:000000 fDn:000000
-    // 7|SNR:-0000  RSSI:-0000
+    time(&now);
+    localtime_r(&now, &timeinfo);
 
-    dp_setFont(MY_FONT_SMALL);
-    dp->printf("%d  ", DisplayPage);
-
-    // show pax
-    libpax_counter_count(&count);
+    dp_setFont(MY_FONT_STRETCHED);
+    dp->setCursor(0, 0);
+    dp->printf("Timeofday:");
+    dp->setCursor(0, 26);
     dp_setFont(MY_FONT_LARGE);
-    dp->printf("%-8u", count.pax);
-
+    strftime(strftime_buf, sizeof(strftime_buf), "%T", &timeinfo);
+    dp->printf("%.8s\r\n", strftime_buf);
     dp_setFont(MY_FONT_SMALL);
-    dp->setCursor(0, MY_DISPLAY_FIRSTLINE);
-    #ifdef LORA_ABP
-      dp->printf("ABP\r\n" );
-    #else
-      dp->printf("OTAA\r\n" );
-    #endif
-    
-
+    dp->printf("%-12.1f", uptime() / 1000.0);
     dp_dump();
-    break;
-#else  // skip this page
-    DisplayPage++;
-    break;
-#endif // HAS_LORA
     break;
 
   // ---------- page 5: pax graph ----------
