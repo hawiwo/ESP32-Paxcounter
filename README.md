@@ -1,6 +1,8 @@
 # ESP32-Paxcounter
 
-[LED](docs/display-led.md)
+- was die Blinkcodes bedeuten -> [LED](docs/display-led.md)
+- in der [paxcounter.conf](https://github.com/hawiwo/ESP32-Paxcounter/blob/master/src/paxcounter.conf) können Grundeinstellungen geändert werden.
+- in der display.cpp habe ich die Anreige etwas geändert.
 
 ![logo](docs/assets/paxcounter_logo_white.png)
 
@@ -28,6 +30,7 @@
 <img src="docs/img/Paxcounter-LEDmatrix.jpg">
 <img src="docs/img/Paxcounter-Clock2.png">
 <img src="docs/img/Paxcounter-ttgo-twristband.jpg">
+
 
 # Use case
 
