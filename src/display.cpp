@@ -368,20 +368,24 @@ void dp_refresh(bool nextPage) {
     dp_setFont(MY_FONT_SMALL);
     dp->printf("%d  ", DisplayPage);
 
-    // show pax
     libpax_counter_count(&count);
     dp_setFont(MY_FONT_LARGE);
     dp->printf("%-8u", count.pax);
 
     dp_setFont(MY_FONT_SMALL);
     dp->setCursor(0, MY_DISPLAY_FIRSTLINE);
+
     #ifdef LORA_ABP
       dp->printf("ABP\r\n" );
     #else
       dp->printf("OTAA\r\n" );
     #endif
-    
-
+    time(&now);
+    localtime_r(&now, &timeinfo);        
+ 
+    strftime(strftime_buf, sizeof(strftime_buf), "%T", &timeinfo);
+    dp->printf("Now:\t%.8s\r\n", strftime_buf);    
+    dp->printf("Uptime:\t%-12.1f", uptime() / 1000.0);
     dp_dump();
     break;
 #else  // skip this page
