@@ -2,7 +2,7 @@
 
 - was die Blinkcodes bedeuten -> [LED](docs/display-led.md)
 - in der [paxcounter.conf](https://github.com/hawiwo/ESP32-Paxcounter/blob/master/src/paxcounter.conf) können Grundeinstellungen geändert werden.
-- in der display.cpp habe ich die Anreige etwas geändert.
+- in der [display.cpp](https://github.com/hawiwo/ESP32-Paxcounter/blob/master/src/display.cpp) habe ich die Anreige etwas geändert.
 
 ![logo](docs/assets/paxcounter_logo_white.png)
 
