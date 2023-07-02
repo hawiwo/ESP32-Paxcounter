@@ -128,7 +128,7 @@ void dp_init(bool verbose) {
     // give user some time to read or take picture
     dp_dump();
 #if !(BOOTMENU)
-    delay(8000);
+   delay(0);//C0 QR-Code 8000
 #endif
 
 #endif // HAS_LORA
@@ -174,7 +174,7 @@ void dp_refresh(bool nextPage) {
   } else
     dp->setCursor(0, 0);
 
-  switch (DisplayPage) {
+  switch (0) { //C1 DisplayPage
     // page 0: pax + parameters overview
     // page 1: pax + lorawan parameters
     // page 2: pax + GPS lat/lon
@@ -258,6 +258,7 @@ void dp_refresh(bool nextPage) {
     dp_setFont(MY_FONT_SMALL, !cfg.adrmode);
     dp->printf("%-4s", getSfName(updr2rps(LMIC.datarate)));
     dp_setFont(MY_FONT_SMALL, 0);
+    Serial.printf("%-16s ", lmic_event_msg);
 #endif // HAS_LORA
 
     dp_dump();
@@ -285,12 +286,12 @@ void dp_refresh(bool nextPage) {
     dp_setFont(MY_FONT_SMALL);
     dp->setCursor(0, MY_DISPLAY_FIRSTLINE);
     dp->printf("Net:%06X   Pwr:%2u\r\n", LMIC.netid & 0x001FFFFF,
-               LMIC.radio_txpow);
-    dp->printf("Dev:%08X DR:%1u\r\n", LMIC.devaddr, LMIC.datarate);
-    dp->printf("ChMsk:%04X Nonce:%04X\r\n", LMIC.channelMap, LMIC.devNonce);
-    dp->printf("fUp:%-6u fDn:%-6u\r\n", LMIC.seqnoUp ? LMIC.seqnoUp - 1 : 0,
-               LMIC.seqnoDn ? LMIC.seqnoDn - 1 : 0);
-    dp->printf("SNR:%-5d  RSSI:%-5d", (LMIC.snr + 2) / 4, LMIC.rssi);
+               LMIC.radio_txpow); // 000013 14
+    dp->printf("Dev:%08X DR:%1u\r\n", LMIC.devaddr, LMIC.datarate);   // 260B0500  5
+    dp->printf("ChMsk:%04X Nonce:%04X\r\n", LMIC.channelMap, LMIC.devNonce);  //  00FF 5EB2
+    dp->printf("fUp:%-6u fDn:%-6u\r\n", LMIC.seqnoUp ? LMIC.seqnoUp - 1 : 0, 
+               LMIC.seqnoDn ? LMIC.seqnoDn - 1 : 0);   // 3 0
+    dp->printf("SNR:%-5d  RSSI:%-5d", (LMIC.snr + 2) / 4, LMIC.rssi);   // -8  -60
 
     dp_dump();
     break;
