@@ -1,7 +1,7 @@
 #ifdef HAS_DISPLAY
 
 /*
-bl
+Abgespeckt
 Display-Mask (128 x 64 pixel):
 
  |        |       |
