@@ -1,7 +1,7 @@
 #ifdef HAS_DISPLAY
 
 /*
-bla
+bl
 Display-Mask (128 x 64 pixel):
 
  |        |       |
